@@ -1,0 +1,442 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import firebaseConfig from '../firebase-applet-config.json' with { type: 'json' };
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
+export const EXACT_MEETINGS_CFO = [
+  {
+    id: 'meet-cfo-2026-06-23',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-06-23',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projetos de Lei nº 23, 24 e 25/2026',
+    description: 'Apreciação e emissão de parecer sobre os Projetos de Lei nº 23, 24 e 25/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos vinte e três dias do mês de junho de dois mil e vinte e seis, às quatorze horas, reuniu-se a Comissão de Finanças, Orçamento e Fiscalização na Sala das Comissões Parlamentares.
+Presentes os vereadores: Henerson Luiz Dias (Presidente), Valsi Rogério Fernandes (Relator) e Dilson Antônio Lopes Pereira (Membro).
+Pauta: Projetos de Lei nº 23, 24 e 25/2026.
+Após análise e debate das proposições, os membros deliberaram favoravelmente às matérias, emitindo parecer unânime. Nada mais havendo, lavrou-se a presente ata.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-06-23T14:00:00').toISOString(),
+    updatedAt: new Date('2026-06-23T15:15:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-07-14',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-07-14',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Lei nº 26/2026 e 27/2026',
+    description: 'Apreciação e parecer sobre os Projetos de Lei nº 26/2026 e nº 27/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'ausente_injustificado',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'ausente_justificado',
+        justificationReason: 'Viagem oficial em representação do Poder Legislativo Municipal com comprovação documental anexada.',
+        justificationDocument: 'Ofício nº 42/2026 - Certificado de representação e diárias',
+        justificationSigned: true,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos quatorze dias do mês de julho de dois mil e vinte e seis, às quatorze horas, reuniu-se a CFO.
+Presente o Presidente Vereador Henerson Luiz Dias. Registrada a ausência justificada do Vereador Dilson Antônio Lopes Pereira em virtude de viagem oficial e representação institucional do Legislativo com documentação regular. Registrada a ausência não justificada do Vereador Valsi Rogério Fernandes.
+Pauta: Projeto de Lei nº 26/2026 e 27/2026. Registrado o relatório de comparecimento e expediente das matérias para instrução subsequente. Lavrou-se a ata.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-07-14T14:00:00').toISOString(),
+    updatedAt: new Date('2026-07-14T14:45:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-07-21',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-07-21',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Lei nº 28/2026',
+    description: 'Apreciação e emissão de parecer sobre o Projeto de Lei nº 28/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos vinte e um dias do mês de julho de dois mil e vinte e seis, às quatorze horas, reuniu-se a Comissão de Finanças na Sala das Comissões.
+Presentes todos os membros da comissão: Vereadores Henerson Luiz Dias (Presidente), Valsi Rogério Fernandes (Relator) e Dilson Antônio Lopes Pereira (Membro).
+Pauta: Projeto de Lei nº 28/2026.
+Após deliberação e voto do relator com parecer favorável, acompanhado pelos membros, a matéria foi aprovada por unanimidade. Lavrou-se a ata.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-07-21T14:00:00').toISOString(),
+    updatedAt: new Date('2026-07-21T15:20:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-08-18',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-08-18',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Resolução nº 03/2026 e nº 04/2026',
+    description: 'Apreciação e emissão de parecer sobre o Projeto de Resolução nº 03/2026 e nº 04/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos dezoito dias do mês de agosto de dois mil e vinte e seis, às quatorze horas, reuniu-se a CFO com presença integral.
+Presentes: Henerson Luiz Dias (Presidente), Valsi Rogério Fernandes (Relator) e Dilson Antônio Lopes Pereira (Membro).
+Pauta: Projeto de Resolução nº 03/2026 e nº 04/2026.
+Examinadas as matérias e seus aspectos financeiros, foi emitido parecer favorável unânime. Nada mais havendo, encerrou-se a reunião.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-08-18T14:00:00').toISOString(),
+    updatedAt: new Date('2026-08-18T15:10:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-08-25',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-08-25',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Lei nº 29/2026 e nº 30/2026',
+    description: 'Apreciação e parecer sobre os Projetos de Lei nº 29/2026 e nº 30/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos vinte e cinco dias do mês de agosto de dois mil e vinte e seis, às quatorze horas, reuniu-se a Comissão de Finanças.
+Presentes os vereadores: Henerson Luiz Dias (Presidente), Valsi Rogério Fernandes (Relator) e Dilson Antônio Lopes Pereira (Membro).
+Pauta: Projeto de Lei nº 29/2026 e nº 30/2026.
+O relator proferiu parecer favorável aos projetos de lei, sendo acompanhado por todos os membros presentes. Aprovado o relatório.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-08-25T14:00:00').toISOString(),
+    updatedAt: new Date('2026-08-25T15:20:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-09-01',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-09-01',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Lei nº 31/2026',
+    description: 'Apreciação e parecer sobre o Projeto de Lei nº 31/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Ao primeiro dia do mês de setembro do ano de dois mil e vinte e seis, às quatorze horas, reuniu-se a CFO na Sala das Comissões.
+Presentes todos os membros: Henerson Luiz Dias, Valsi Rogério Fernandes e Dilson Antônio Lopes Pereira.
+Pauta: Projeto de Lei nº 31/2026.
+Discutida a matéria e verificado o equilíbrio orçamentário, votou-se pelo parecer favorável à tramitação legislativa. Lavrou-se a presente ata.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-09-01T14:00:00').toISOString(),
+    updatedAt: new Date('2026-09-01T15:15:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-09-15',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-09-15',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Lei nº 32/2026 e 34/2026',
+    description: 'Apreciação e emissão de parecer sobre o Projeto de Lei nº 32/2026 e 34/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos quinze dias do mês de setembro de dois mil e vinte e seis, às quatorze horas, reuniu-se a CFO.
+Presentes os vereadores: Henerson Luiz Dias (Presidente), Valsi Rogério Fernandes (Relator) e Dilson Antônio Lopes Pereira (Membro).
+Pauta: Projeto de Lei nº 32/2026 e 34/2026.
+Após análise minuciosa, a comissão emitiu parecer favorável conclusivo por unanimidade. Lavrou-se a ata.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-09-15T14:00:00').toISOString(),
+    updatedAt: new Date('2026-09-15T15:20:00').toISOString(),
+  },
+  {
+    id: 'meet-cfo-2026-09-25',
+    committeeId: 'com-cfo',
+    committeeName: 'Comissão de Finanças, Orçamento e Fiscalização',
+    date: '2026-09-25',
+    time: '14:00',
+    location: 'Sala das Comissões Parlamentares',
+    topic: 'Projeto de Lei nº 35/2026',
+    description: 'Apreciação e parecer sobre o Projeto de Lei nº 35/2026.',
+    status: 'realizada',
+    attendances: [
+      {
+        councilorId: 'c-04',
+        councilorName: 'Henerson Luiz Dias',
+        committeeRole: 'Presidente',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-05',
+        councilorName: 'Valsi Rogério Fernandes',
+        committeeRole: 'Relator',
+        politicalParty: 'PL',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+      {
+        councilorId: 'c-06',
+        councilorName: 'Dilson Antônio Lopes Pereira',
+        committeeRole: 'Membro',
+        politicalParty: 'MDB',
+        status: 'presente',
+        justificationReason: '',
+        justificationDocument: '',
+        justificationSigned: false,
+      },
+    ],
+    minutesText: `ATA DA REUNIÃO DA COMISSÃO DE FINANÇAS, ORÇAMENTO E FISCALIZAÇÃO (CFO) DA CÂMARA MUNICIPAL.
+Aos vinte e cinco dias do mês de setembro de dois mil e vinte e seis, às quatorze horas, reuniu-se a Comissão de Finanças.
+Presentes todos os membros da comissão: Henerson Luiz Dias (Presidente), Valsi Rogério Fernandes (Relator) e Dilson Antônio Lopes Pereira (Membro).
+Pauta: Projeto de Lei nº 35/2026.
+O relator apresentou parecer favorável, aprovado unanimemente pelos pares. Nada mais havendo a tratar, encerrou-se a reunião.`,
+    minutesApproved: true,
+    createdAt: new Date('2026-09-25T14:00:00').toISOString(),
+    updatedAt: new Date('2026-09-25T15:30:00').toISOString(),
+  },
+];
+
+async function applyExactCfoMeetings() {
+  console.log('--- LIMPANDO REUNIÕES ANTERIORES DA CFO NO FIRESTORE ---');
+  const meetsSnap = await getDocs(collection(db, 'meetings'));
+  for (const docSnap of meetsSnap.docs) {
+    const data = docSnap.data();
+    if (data.committeeId === 'com-cfo') {
+      console.log('Removendo reunião CFO antiga:', docSnap.id, data.date, data.topic);
+      await deleteDoc(doc(db, 'meetings', docSnap.id));
+    }
+  }
+
+  console.log('--- GRAVANDO AS 8 REUNIÕES EXATAS CONFORME O RELATÓRIO DO USUÁRIO ---');
+  for (const m of EXACT_MEETINGS_CFO) {
+    console.log(`Gravando Reunião CFO: ${m.date} - ${m.topic}`);
+    await setDoc(doc(db, 'meetings', m.id), m);
+  }
+
+  console.log('--- TODAS AS 8 REUNIÕES EXATAS DA CFO FORAM ATUALIZADAS COM SUCESSO! ---');
+  process.exit(0);
+}
+
+applyExactCfoMeetings().catch((err) => {
+  console.error('Erro ao atualizar reuniões exatas da CFO:', err);
+  process.exit(1);
+});
